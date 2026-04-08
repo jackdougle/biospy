@@ -22,7 +22,6 @@ jobs:
         working-directory: python-sdk
         run: maturin develop
       - name: Lint
-        working-directory: python-sdk
-        run: ruff check biospy/
+        run: ruff check python-sdk/biospy/
       - name: Test
         run: pytest tests/python/ -v
