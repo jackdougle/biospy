@@ -1,0 +1,28 @@
+name: Python CI
+
+on:
+  push:
+    branches: [main]
+  pull_request:
+    branches: [main]
+
+jobs:
+  test:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: dtolnay/rust-toolchain@stable
+      - uses: actions/setup-python@v5
+        with:
+          python-version: "3.13"
+      - name: Install deps
+        run: |
+          pip install maturin numpy scikit-learn polars pytest ruff
+      - name: Build native extension
+        working-directory: python-sdk
+        run: maturin develop
+      - name: Lint
+        working-directory: python-sdk
+        run: ruff check biospy/
+      - name: Test
+        run: pytest tests/python/ -v

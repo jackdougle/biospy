@@ -1,0 +1,16 @@
+[kmer]
+k = 5
+
+[sketch]
+n = 100
+
+[bloom]
+expected_items = 100
+fp_rate = 0.1
+
+[detection]
+threshold = 0.5
+top_n_features = 10
+
+[attribution]
+top_n_features = 10

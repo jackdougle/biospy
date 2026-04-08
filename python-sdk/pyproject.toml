@@ -1,0 +1,27 @@
+[build-system]
+requires = ["maturin>=1.7,<2.0"]
+build-backend = "maturin"
+
+[project]
+name = "biospy"
+version = "0.1.0"
+description = "DARPA Bio-Attribution Challenge toolkit"
+readme = "../README.md"
+requires-python = ">=3.11"
+dependencies = [
+    "numpy>=2.0",
+    "scikit-learn>=1.5",
+]
+
+[project.optional-dependencies]
+dev = [
+    "pytest>=8.0",
+    "ruff>=0.6",
+    "maturin>=1.7",
+]
+
+[tool.maturin]
+manifest-path = "../rust-core/biospy-core/Cargo.toml"
+module-name = "biospy.biospy_core"
+python-source = "."
+features = ["pyo3/extension-module"]

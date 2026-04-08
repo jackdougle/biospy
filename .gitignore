@@ -1,0 +1,70 @@
+# Python
+__pycache__/
+*.py[oc]
+build/
+dist/
+wheels/
+*.egg-info
+.venv
+.eggs/
+
+# Rust
+/target
+rust-core/target/
+
+# IDE
+.idea/
+.vscode/
+*.swp
+*.swo
+*~
+
+# OS
+.DS_Store
+Thumbs.db
+
+# Secrets & credentials
+.env
+.env.*
+*.pem
+*.key
+*.cert
+*.crt
+*.p12
+*.pfx
+*.jks
+credentials.json
+secrets.json
+service-account*.json
+token.json
+*.secret
+
+# API keys & config with secrets
+config.local.toml
+configs/local.toml
+configs/prod.toml
+
+# SSH
+id_rsa
+id_ed25519
+*.pub
+
+# Model artifacts (large binaries)
+*.pkl
+*.pickle
+*.joblib
+*.h5
+*.hdf5
+*.onnx
+*.pt
+*.pth
+*.safetensors
+models/*.bin
+
+# Data (may contain sensitive sequences)
+data/
+*.bam
+*.sam
+*.vcf
+*.bed
+*.gff
