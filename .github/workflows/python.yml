@@ -16,11 +16,12 @@ jobs:
         with:
           python-version: "3.13"
       - name: Install deps
-        run: |
-          pip install maturin numpy scikit-learn pytest ruff
-      - name: Build native extension
+        run: pip install maturin numpy scikit-learn pytest ruff
+      - name: Build and install extension
         working-directory: python-sdk
-        run: maturin develop
+        run: |
+          maturin build --release --out dist
+          pip install dist/*.whl
       - name: Lint
         run: ruff check python-sdk/biospy/
       - name: Test
