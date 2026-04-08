@@ -141,8 +141,7 @@ impl<R: BufRead> Iterator for FastaReader<R> {
                 _ => {}
             }
             if self.buf.starts_with('>') {
-                self.peeked_header =
-                    Some(self.buf.trim_start_matches('>').trim().to_string());
+                self.peeked_header = Some(self.buf.trim_start_matches('>').trim().to_string());
                 break;
             }
             seq.extend_from_slice(self.buf.trim().as_bytes());

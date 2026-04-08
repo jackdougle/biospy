@@ -41,13 +41,13 @@ impl MinHash {
         if self.heap.len() < self.n {
             self.heap.push(h);
             self.seen.insert(h);
-        } else if let Some(&max) = self.heap.peek() {
-            if h < max {
-                self.seen.remove(&max);
-                self.heap.pop();
-                self.heap.push(h);
-                self.seen.insert(h);
-            }
+        } else if let Some(&max) = self.heap.peek()
+            && h < max
+        {
+            self.seen.remove(&max);
+            self.heap.pop();
+            self.heap.push(h);
+            self.seen.insert(h);
         }
     }
 

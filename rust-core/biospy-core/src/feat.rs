@@ -93,6 +93,7 @@ impl Pipeline {
         }
     }
 
+    #[allow(clippy::should_implement_trait)]
     pub fn add(mut self, ext: Box<dyn FeatureExtractor>) -> Self {
         self.extractors.push(ext);
         self
@@ -103,7 +104,10 @@ impl Pipeline {
     }
 
     pub fn extract(&self, seq: &[u8]) -> Vec<f64> {
-        self.extractors.iter().flat_map(|e| e.extract(seq)).collect()
+        self.extractors
+            .iter()
+            .flat_map(|e| e.extract(seq))
+            .collect()
     }
 
     pub fn names(&self) -> Vec<&str> {

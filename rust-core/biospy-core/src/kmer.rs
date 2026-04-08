@@ -97,12 +97,9 @@ fn comp_base(b: u8) -> u8 {
 
 /// Fixed-seed hash for reproducibility across runs.
 fn hash_bytes(data: &[u8]) -> u64 {
-    use std::hash::{BuildHasher, Hash, Hasher};
     static STATE: std::sync::LazyLock<ahash::RandomState> =
         std::sync::LazyLock::new(|| ahash::RandomState::with_seeds(0x517c, 0x6c62, 0x0bb4, 0x2f3b));
-    let mut hasher = STATE.build_hasher();
-    data.hash(&mut hasher);
-    hasher.finish()
+    STATE.hash_one(data)
 }
 
 #[cfg(test)]

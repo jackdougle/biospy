@@ -17,7 +17,7 @@ jobs:
           python-version: "3.13"
       - name: Install deps
         run: |
-          pip install maturin numpy scikit-learn polars pytest ruff
+          pip install maturin numpy scikit-learn pytest ruff
       - name: Build native extension
         working-directory: python-sdk
         run: maturin develop

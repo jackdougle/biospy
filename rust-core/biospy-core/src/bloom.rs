@@ -1,7 +1,5 @@
 // Bloom filter for fast set membership queries
 
-use std::hash::Hash;
-
 pub struct BloomFilter {
     bits: Vec<u8>,
     nbits: usize,
@@ -14,7 +12,7 @@ impl BloomFilter {
         let nbits = optimal_bits(expected, fp_rate);
         let nhash = optimal_hashes(nbits, expected);
         Self {
-            bits: vec![0u8; (nbits + 7) / 8],
+            bits: vec![0u8; nbits.div_ceil(8)],
             nbits,
             nhash,
         }
@@ -22,7 +20,7 @@ impl BloomFilter {
 
     pub fn new(nbits: usize, nhash: usize) -> Self {
         Self {
-            bits: vec![0u8; (nbits + 7) / 8],
+            bits: vec![0u8; nbits.div_ceil(8)],
             nbits,
             nhash,
         }
@@ -49,16 +47,13 @@ impl BloomFilter {
     }
 
     fn two_hashes(&self, item: &[u8]) -> (u64, u64) {
-        use std::hash::{BuildHasher, Hasher};
-        static S1: std::sync::LazyLock<ahash::RandomState> =
-            std::sync::LazyLock::new(|| ahash::RandomState::with_seeds(0x517c, 0x6c62, 0x0bb4, 0x2f3b));
-        static S2: std::sync::LazyLock<ahash::RandomState> =
-            std::sync::LazyLock::new(|| ahash::RandomState::with_seeds(0xa1b2, 0xc3d4, 0xe5f6, 0x7890));
-        let mut h1 = S1.build_hasher();
-        item.hash(&mut h1);
-        let mut h2 = S2.build_hasher();
-        item.hash(&mut h2);
-        (h1.finish(), h2.finish())
+        static S1: std::sync::LazyLock<ahash::RandomState> = std::sync::LazyLock::new(|| {
+            ahash::RandomState::with_seeds(0x517c, 0x6c62, 0x0bb4, 0x2f3b)
+        });
+        static S2: std::sync::LazyLock<ahash::RandomState> = std::sync::LazyLock::new(|| {
+            ahash::RandomState::with_seeds(0xa1b2, 0xc3d4, 0xe5f6, 0x7890)
+        });
+        (S1.hash_one(item), S2.hash_one(item))
     }
 }
 

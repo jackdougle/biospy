@@ -8,10 +8,8 @@ try:
     from biospy.biospy_core import count_fastq as _count_fastq
     from biospy.biospy_core import extract_features as _extract_features
     from biospy.biospy_core import extract_features_batch as _extract_features_batch
-    from biospy.biospy_core import read_fastq_seqs as _read_fastq_seqs
     from biospy.biospy_core import read_fasta_seqs as _read_fasta_seqs
-    from biospy.biospy_core import count_ambiguous as _count_ambiguous
-    from biospy.biospy_core import PyKmerCounter, PyMinHash
+    from biospy.biospy_core import read_fastq_seqs as _read_fastq_seqs
 
     HAS_NATIVE = True
 except ImportError:

@@ -6,7 +6,7 @@ from pathlib import Path
 
 import numpy as np
 
-from biospy.core import read_fastq_seqs, extract_features_batch
+from biospy.core import extract_features_batch, read_fastq_seqs
 from biospy.utils import resolve_paths
 
 

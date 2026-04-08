@@ -11,7 +11,7 @@ impl Seq {
     /// Ambiguous bases (N etc.) are encoded as A — use `count_ambiguous` to check first.
     pub fn from_ascii(bases: &[u8]) -> Self {
         let n = bases.len();
-        let nbytes = (n + 3) / 4;
+        let nbytes = n.div_ceil(4);
         let mut data = vec![0u8; nbytes];
         for (i, &b) in bases.iter().enumerate() {
             let enc = encode_base(b);
